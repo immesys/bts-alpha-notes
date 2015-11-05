@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+target=$1
+ceph-deploy install $target
+for i in f g h i
+do
+	ssh $target sudo umount /dev/xvd$i
+	#ssh $target sudo dd if=/dev/null of=/dev/xvd$i bs=1M
+	ceph-deploy disk zap $target:xvd$i
+	ceph-deploy osd create $target:xvd$i
+	ceph-deploy admin $target
+	ssh $target sudo chmod a+r /etc/ceph/ceph.client.admin.keyring
+done

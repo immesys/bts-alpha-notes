@@ -1,0 +1,8 @@
+for i in 0 15 11
+do
+	ceph osd out $i
+	ceph osd down $i
+	ceph osd crush remove osd.$i
+	ceph auth del osd.$i
+	ceph osd rm $i
+done

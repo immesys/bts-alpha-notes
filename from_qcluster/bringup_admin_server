@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+target=$1
+ceph-deploy install $target
+ceph-deploy admin $target
+ssh target chmod a+r /etc/ceph/ceph.client.admin.keyring

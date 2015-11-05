@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+targets="243 244 227 226"
+rm ~/.ssh/known_hosts
+for i in $targets
+do
+	echo "trying to auth" $i
+	ssh ip-10-41-0-$i echo "authorized"
+done
+for i in $targets
+do
+	./bringup_osd_server ip-10-41-0-$i &
+done
